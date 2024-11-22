@@ -404,7 +404,7 @@ define Device/asus_rp-ac56
   DEVICE_MODEL := RP-AC56
   IMAGE_SIZE := 16000k
   DEVICE_PACKAGES := kmod-mt7603 kmod-mt76x2 \
-	kmod-i2c-ralink kmod-sound-mt7620 -uboot-envtools
+	kmod-sound-mt7620 -uboot-envtools
   IMAGES += factory.bin
   IMAGE/factory.bin := append-kernel | append-rootfs | pad-rootfs | check-size
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | \
@@ -1381,6 +1381,29 @@ define Device/gehua_ghl-r-001
 	kmod-usb-ledtrig-usbport -uboot-envtools
 endef
 TARGET_DEVICES += gehua_ghl-r-001
+
+define Device/gemtek_wvrtm-1xxacn
+  $(Device/nand)
+  $(Device/uimage-lzma-loader)
+  IMAGE_SIZE := 122368k
+  DEVICE_VENDOR := Gemtek
+  DEVICE_PACKAGES := kmod-gpio-nxp-74hc164 kmod-spi-gpio \
+  kmod-usb3 -uboot-envtools 
+endef
+
+define Device/gemtek_wvrtm-127acn
+  $(Device/gemtek_wvrtm-1xxacn)
+  DEVICE_MODEL := WVRTM-127ACN
+  DEVICE_PACKAGES += kmod-mt7603 kmod-mt76x2
+endef
+TARGET_DEVICES += gemtek_wvrtm-127acn
+
+define Device/gemtek_wvrtm-130acn
+  $(Device/gemtek_wvrtm-1xxacn)
+  DEVICE_MODEL := WVRTM-130ACN
+  DEVICE_PACKAGES += kmod-mt7615-firmware
+endef
+TARGET_DEVICES += gemtek_wvrtm-130acn
 
 define Device/glinet_gl-mt1300
   $(Device/dsa-migration)
